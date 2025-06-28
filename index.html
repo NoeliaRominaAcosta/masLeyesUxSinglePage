@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leyes UX/UI - Guía para Desarrolladores</title>
+    <script>
+      function showLaw(lawType) {
+        // Ocultar todas las secciones de contenido (.law-card)
+        const sections = document.querySelectorAll(".law-card");
+        sections.forEach((section) => {
+          section.style.display = "none";
+          section.classList.remove("active");
+        });
+
+        // Remover clase 'active' de todos los botones
+        const buttons = document.querySelectorAll(".nav-btn");
+        buttons.forEach((button) => {
+          button.classList.remove("active");
+        });
+
+        // Mostrar la sección correspondiente
+        const targetSection = document.getElementById(lawType);
+        if (targetSection) {
+          targetSection.style.display = "block";
+          targetSection.classList.add("active");
+        }
+
+        // Agregar clase 'active' al botón clickeado
+        const clickedButton = event
+          ? event.target
+          : document.querySelector(`[onclick="showLaw('${lawType}')"]`);
+        if (clickedButton) {
+          clickedButton.classList.add("active");
+        }
+
+        // Opcional: Scroll suave hacia arriba
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // Función alternativa si prefieres pasar el elemento button como parámetro
+      function showLawWithButton(lawType, buttonElement) {
+        // Ocultar todas las secciones
+        const sections = document.querySelectorAll(".law-content");
+        sections.forEach((section) => {
+          section.style.display = "none";
+          section.classList.remove("active");
+        });
+
+        // Remover clase 'active' de todos los botones
+        const buttons = document.querySelectorAll(".nav-btn");
+        buttons.forEach((button) => {
+          button.classList.remove("active");
+        });
+
+        // Mostrar la sección correspondiente
+        const targetSection = document.getElementById(lawType);
+        if (targetSection) {
+          targetSection.style.display = "block";
+          targetSection.classList.add("active");
+        }
+
+        // Agregar clase 'active' al botón clickeado
+        if (buttonElement) {
+          buttonElement.classList.add("active");
+        }
+
+        // Scroll suave hacia arriba
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // Si quieres usar la segunda función, cambia el HTML a:
+      // <button class="nav-btn active" onclick="showLawWithButton('overview', this)">📋 Overview</button>
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+        animation: fadeInDown 1s ease-out;
+      }
+
+      .header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+      }
+
+      .navigation {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 40px;
+      }
+
+      .nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        font-weight: 600;
+      }
+
+      .nav-btn:hover,
+      .nav-btn.active {
+        background: rgba(255, 255, 255, 0.9);
+        color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .law-card {
+        display: none;
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        animation: slideInUp 0.5s ease-out;
+        border-left: 6px solid #667eea;
+      }
+
+      .law-card.active {
+        display: block;
+      }
+
+      .law-title {
+        font-size: 2.5rem;
+        color: #667eea;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .law-icon {
+        font-size: 2rem;
+      }
+
+      .law-description {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+      }
+
+      .example-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        border-left: 4px solid #4828a7;
+        transition: transform 0.3s ease;
+      }
+
+      .example-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .example-title {
+        font-size: 1.3rem;
+        color: #7628a7;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .example-platform {
+        background: #667eea;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+      }
+
+      .implementation-tips {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .tips-title {
+        color: #856404;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      .tips-list {
+        color: #856404;
+        line-height: 1.6;
+      }
+
+      .demo-section {
+        background: #e3f2fd;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        border-left: 4px solid #73bcf9;
+      }
+
+      .demo-title {
+        color: #1976d2;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .interactive-demo {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin: 15px 0;
+      }
+
+      .demo-button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      .good-button {
+        background: #9428a7;
+        color: white;
+      }
+
+      .bad-button {
+        background: #dc3545;
+        color: white;
+      }
+
+      .demo-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .overview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .overview-item {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .overview-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .overview-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2.5rem;
+        }
+        .law-card {
+          padding: 25px;
+        }
+        .examples-grid {
+          grid-template-columns: 1fr;
+        }
+        .interactive-demo {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>⚡ Leyes UX/UI</h1>
+        <p>Principios fundamentales para desarrolladores</p>
+      </div>
+
+      <div class="navigation">
+        <button class="nav-btn active" onclick="showLaw('overview')">
+          📋 Overview
+        </button>
+        <button class="nav-btn" onclick="showLaw('fitts')">
+          🎯 Ley de Fitts
+        </button>
+        <button class="nav-btn" onclick="showLaw('hicks')">
+          ⚡ Ley de Hick
+        </button>
+        <button class="nav-btn" onclick="showLaw('miller')">
+          🧠 Ley de Miller
+        </button>
+        <button class="nav-btn" onclick="showLaw('gestalt')">
+          👁️ Principios Gestalt
+        </button>
+        <button class="nav-btn" onclick="showLaw('pareto')">
+          📊 Principio de Pareto
+        </button>
+        <button class="nav-btn" onclick="showLaw('jakob')">
+          🔄 Ley de Jakob
+        </button>
+      </div>
+
+      <!-- Overview -->
+      <div class="law-card active" id="overview">
+        <div class="law-title">
+          <span class="law-icon">📋</span>
+          Resumen de Leyes UX/UI
+        </div>
+        <div class="law-description">
+          Las leyes UX/UI son principios basados en psicología cognitiva y
+          comportamiento humano que nos ayudan a crear interfaces más intuitivas
+          y eficientes.
+        </div>
+
+        <div class="overview-grid">
+          <div class="overview-item">
+            <div class="overview-icon">🎯</div>
+            <h3>Ley de Fitts</h3>
+            <p>
+              El tiempo para alcanzar un objetivo depende de su tamaño y
+              distancia
+            </p>
+          </div>
+          <div class="overview-item">
+            <div class="overview-icon">⚡</div>
+            <h3>Ley de Hick</h3>
+            <p>Más opciones = más tiempo de decisión</p>
+          </div>
+          <div class="overview-item">
+            <div class="overview-icon">🧠</div>
+            <h3>Ley de Miller</h3>
+            <p>La memoria puede procesar 7±2 elementos simultáneamente</p>
+          </div>
+          <div class="overview-item">
+            <div class="overview-icon">👁️</div>
+            <h3>Principios Gestalt</h3>
+            <p>Cómo percibimos y organizamos la información visual</p>
+          </div>
+          <div class="overview-item">
+            <div class="overview-icon">📊</div>
+            <h3>Principio de Pareto</h3>
+            <p>80% de los efectos provienen del 20% de las causas</p>
+          </div>
+          <div class="overview-item">
+            <div class="overview-icon">🔄</div>
+            <h3>Ley de Jakob</h3>
+            <p>Los usuarios prefieren interfaces familiares</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ley de Fitts -->
+      <div class="law-card" id="fitts">
+        <div class="law-title">
+          <span class="law-icon">🎯</span>
+          Ley de Fitts
+        </div>
+        <div class="law-description">
+          El tiempo requerido para moverse rápidamente a un área objetivo es
+          función de la distancia al objetivo y el tamaño del objetivo.
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Botones de Acción</div>
+            <p>
+              Los botones principales deben ser más grandes y estar cerca del
+              cursor/contenido relacionado.
+            </p>
+            <div class="code-example">
+              .primary-button { padding: 16px 32px; /* Más grande */ min-height:
+              44px; /* Área táctil mínima */ } .secondary-button { padding: 8px
+              16px; /* Más pequeño */ }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Navegación Inferior</div>
+            <p>
+              Los elementos de navegación principal en la parte inferior son más
+              fáciles de alcanzar con el pulgar.
+            </p>
+            <div class="code-example">
+              .bottom-navigation { position: fixed; bottom: 0; height: 64px; /*
+              Área grande */ width: 100%; } .nav-item { min-width: 64px; /*
+              Objetivo grande */ min-height: 64px; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Desktop</div>
+            <div class="example-title">Menús Contextuales</div>
+            <p>
+              Los menús deben aparecer cerca del cursor para reducir la
+              distancia de movimiento.
+            </p>
+            <div class="code-example">
+              // Mostrar menú contextual cerca del click function
+              showContextMenu(event) { const menu =
+              document.getElementById('contextMenu'); menu.style.left =
+              event.pageX + 'px'; menu.style.top = event.pageY + 'px';
+              menu.style.display = 'block'; }
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Demo Interactiva</div>
+          <p>Prueba la diferencia entre botones grandes y pequeños:</p>
+          <div class="interactive-demo">
+            <button class="demo-button good-button" style="padding: 20px 40px">
+              Botón Grande ✓
+            </button>
+            <button
+              class="demo-button bad-button"
+              style="padding: 5px 10px; font-size: 10px"
+            >
+              Pequeño ✗
+            </button>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación</div>
+          <div class="tips-list">
+            • Botones primarios: mínimo 44x44px (móvil) o 32x32px (desktop)<br />
+            • Coloca acciones relacionadas cerca unas de otras<br />
+            • Usa las esquinas de la pantalla para elementos importantes<br />
+            • En móvil, considera la "zona del pulgar" (parte inferior de la
+            pantalla)
+          </div>
+        </div>
+      </div>
+
+      <!-- Ley de Hick -->
+      <div class="law-card" id="hicks">
+        <div class="law-title">
+          <span class="law-icon">⚡</span>
+          Ley de Hick
+        </div>
+        <div class="law-description">
+          El tiempo que toma tomar una decisión aumenta logarítmicamente con el
+          número de opciones disponibles.
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Navegación Simplificada</div>
+            <p>
+              Limita las opciones del menú principal a 5-7 elementos máximo.
+            </p>
+            <div class="code-example">
+              &lt;nav&gt; &lt;ul&gt; &lt;li&gt;Inicio&lt;/li&gt;
+              &lt;li&gt;Productos&lt;/li&gt; &lt;li&gt;Servicios&lt;/li&gt;
+              &lt;li&gt;Sobre Nosotros&lt;/li&gt; &lt;li&gt;Contacto&lt;/li&gt;
+              &lt;/ul&gt; &lt;/nav&gt; /* Evita menús con 15+ opciones */
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Categorización Progresiva</div>
+            <p>
+              Usa navegación jerárquica en lugar de mostrar todas las opciones a
+              la vez.
+            </p>
+            <div class="code-example">
+              // Estado de navegación progresiva const [currentLevel,
+              setCurrentLevel] = useState(0); const [breadcrumb, setBreadcrumb]
+              = useState(['Inicio']); const navigateToCategory = (category) => {
+              setCurrentLevel(prev => prev + 1); setBreadcrumb(prev => [...prev,
+              category]); };
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Desktop</div>
+            <div class="example-title">Filtros Inteligentes</div>
+            <p>
+              Usa filtros progresivos que reduzcan las opciones basándose en
+              selecciones previas.
+            </p>
+            <div class="code-example">
+              // Filtros que se actualizan dinámicamente function
+              updateFilters(selectedCategory) { const availableSubcategories =
+              data.filter(item => item.category === selectedCategory ).map(item
+              => item.subcategory);
+              renderSubcategoryFilter(availableSubcategories); }
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Demo Interactiva</div>
+          <p>Compara estos dos enfoques de navegación:</p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              margin: 20px 0;
+            "
+          >
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px">
+              <strong>❌ Demasiadas opciones:</strong><br />
+              <small
+                >Inicio | Productos | Servicios | Empresa | Blog | Soporte | FAQ
+                | Contacto | Partners | Recursos | Documentación |
+                Downloads</small
+              >
+            </div>
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px">
+              <strong>✅ Opciones agrupadas:</strong><br />
+              <small>Inicio | Productos | Soporte | Empresa | Contacto</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación</div>
+          <div class="tips-list">
+            • Agrupa opciones relacionadas en categorías<br />
+            • Usa navegación progresiva (breadcrumbs)<br />
+            • Implementa búsqueda para conjuntos grandes de datos<br />
+            • Considera valores por defecto inteligentes<br />
+            • Usa filtros en tiempo real para reducir opciones
+          </div>
+        </div>
+      </div>
+
+      <!-- Ley de Miller -->
+      <div class="law-card" id="miller">
+        <div class="law-title">
+          <span class="law-icon">🧠</span>
+          Ley de Miller (7±2)
+        </div>
+        <div class="law-description">
+          La memoria de trabajo humana puede mantener efectivamente 7±2 (5-9)
+          elementos de información simultáneamente.
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Formularios Chunking</div>
+            <p>Divide formularios largos en secciones de 5-7 campos máximo.</p>
+            <div class="code-example">
+              &lt;!-- Sección 1: Información Personal --&gt; &lt;fieldset&gt;
+              &lt;legend&gt;Información Personal&lt;/legend&gt; &lt;input
+              type="text" placeholder="Nombre"&gt; &lt;input type="text"
+              placeholder="Apellido"&gt; &lt;input type="email"
+              placeholder="Email"&gt; &lt;input type="tel"
+              placeholder="Teléfono"&gt; &lt;/fieldset&gt; &lt;!-- Sección 2:
+              Dirección --&gt; &lt;fieldset&gt;
+              &lt;legend&gt;Dirección&lt;/legend&gt; &lt;!-- Más campos...
+              --&gt; &lt;/fieldset&gt;
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Listas Paginadas</div>
+            <p>
+              Muestra elementos en grupos de 5-10 por página en lugar de listas
+              infinitas.
+            </p>
+            <div class="code-example">
+              const ITEMS_PER_PAGE = 8; // Dentro del rango 7±2 function
+              PaginatedList({ items }) { const [currentPage, setCurrentPage] =
+              useState(1); const displayedItems = items.slice( (currentPage - 1)
+              * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE ); return (
+              &lt;div&gt; {displayedItems.map(item => &lt;ListItem key={item.id}
+              {...item} /&gt; )} &lt;/div&gt; ); }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Desktop</div>
+            <div class="example-title">Navegación Agrupada</div>
+            <p>
+              Organiza elementos de navegación en grupos lógicos de máximo 7
+              elementos.
+            </p>
+            <div class="code-example">
+              // Estructura de navegación agrupada const navigationStructure = {
+              "Productos": [ "Software", "Hardware", "Servicios", "Consultoria",
+              "Soporte" ], // 5 elementos "Empresa": [ "Sobre Nosotros",
+              "Equipo", "Historia", "Valores", "Contacto" ], // 5 elementos
+              "Recursos": [ "Blog", "Documentación", "FAQ", "Tutoriales",
+              "Downloads", "API" ] // 6 elementos };
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Demo Interactiva</div>
+          <p>Ejemplo de información chunked vs. no chunked:</p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              margin: 20px 0;
+            "
+          >
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px">
+              <strong>❌ Información abrumadora:</strong><br />
+              <small
+                >Campo1, Campo2, Campo3, Campo4, Campo5, Campo6, Campo7, Campo8,
+                Campo9, Campo10, Campo11, Campo12</small
+              >
+            </div>
+            <div style="background: #d4edda; padding: 15px; border-radius: 8px">
+              <strong>✅ Información agrupada:</strong><br />
+              <strong>Grupo 1:</strong> <small>Campo1, Campo2, Campo3</small
+              ><br />
+              <strong>Grupo 2:</strong> <small>Campo4, Campo5, Campo6</small
+              ><br />
+              <strong>Grupo 3:</strong> <small>Campo7, Campo8</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación</div>
+          <div class="tips-list">
+            • Usa espacios en blanco para separar grupos<br />
+            • Implementa pasos progresivos en wizards<br />
+            • Agrupa elementos relacionados visualmente<br />
+            • Usa paginación en lugar de scroll infinito para listas largas<br />
+            • Limita opciones en dropdowns a 7±2 cuando sea posible
+          </div>
+        </div>
+      </div>
+
+      <!-- Principios Gestalt -->
+      <div class="law-card" id="gestalt">
+        <div class="law-title">
+          <span class="law-icon">👁️</span>
+          Principios Gestalt
+        </div>
+        <div class="law-description">
+          Principios que describen cómo percibimos y organizamos la información
+          visual. "El todo es mayor que la suma de sus partes."
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Proximidad y Agrupación</div>
+            <p>
+              Elementos relacionados deben estar visualmente cerca entre sí.
+            </p>
+            <div class="code-example">
+              .form-group { margin-bottom: 24px; /* Separación entre grupos */ }
+              .form-group label, .form-group input { margin-bottom: 4px; /*
+              Elementos relacionados cerca */ } .form-actions { margin-top:
+              32px; /* Acciones separadas del formulario */ }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Similitud y Continuidad</div>
+            <p>
+              Elementos similares se perciben como relacionados. Usa patrones
+              consistentes.
+            </p>
+            <div class="code-example">
+              // Botones con estilos consistentes const buttonStyles = {
+              primary: { backgroundColor: '#007bff', color: 'white',
+              borderRadius: '8px', padding: '12px 24px' }, secondary: {
+              backgroundColor: 'transparent', color: '#007bff', border: '2px
+              solid #007bff', borderRadius: '8px', // Mismo radio padding: '12px
+              24px' // Mismo padding } };
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Desktop</div>
+            <div class="example-title">Cierre y Figura/Fondo</div>
+            <p>Usa contraste y espacios para crear jerarquía visual clara.</p>
+            <div class="code-example">
+              .card { background: white; border-radius: 12px; box-shadow: 0 4px
+              12px rgba(0,0,0,0.1); padding: 24px; /* Crea figura clara sobre
+              fondo */ } .hero-section { background: linear-gradient(135deg,
+              #667eea 0%, #764ba2 100%); color: white; /* Alto contraste
+              figura/fondo */ } .content-section { background: #f8f9fa; /* Fondo
+              neutro que no compite */ }
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Principios Gestalt en Acción</div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 15px;
+              margin: 20px 0;
+            "
+          >
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px">
+              <strong>Proximidad:</strong><br />
+              <div style="margin: 10px 0">
+                <div
+                  style="
+                    background: #2196f3;
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    margin: 2px;
+                  "
+                ></div>
+                <div
+                  style="
+                    background: #2196f3;
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    margin: 2px;
+                  "
+                ></div>
+              </div>
+              <div style="margin: 20px 0">
+                <div
+                  style="
+                    background: #4caf50;
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    margin: 2px;
+                  "
+                ></div>
+                <div
+                  style="
+                    background: #4caf50;
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    margin: 2px;
+                  "
+                ></div>
+              </div>
+            </div>
+            <div style="background: #f3e5f5; padding: 15px; border-radius: 8px">
+              <strong>Similitud:</strong><br />
+              <div style="margin: 10px 0">
+                <span style="color: #9c27b0; font-size: 20px">●●●</span><br />
+                <span style="color: #ff9800; font-size: 20px">▲▲▲</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación</div>
+          <div class="tips-list">
+            • Usa espacios en blanco para agrupar elementos relacionados<br />
+            • Mantén consistencia en colores, formas y tamaños<br />
+            • Crea jerarquía visual clara con contraste<br />
+            • Alinea elementos para crear líneas implícitas<br />
+            • Usa el principio de cierre para íconos y elementos gráficos
+          </div>
+        </div>
+      </div>
+
+      <div class="law-card" id="pareto">
+        <div class="law-title">
+          <span class="law-icon">📊</span>
+          Principio de Pareto (80/20)
+        </div>
+        <div class="law-description">
+          El 80% de los efectos provienen del 20% de las causas. En UX,
+          <span class="highlight">el 80% del uso</span> se concentra en el
+          <span class="highlight">20% de las funcionalidades</span>.
+        </div>
+        <div class="percentage-visual"></div>
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Priorización de Features</div>
+            <p>
+              Identifica y optimiza las funcionalidades más utilizadas por tus
+              usuarios.
+            </p>
+            <div class="code-example">
+              /* Prioriza elementos según uso */ .primary-actions { /* 20% de
+              acciones, 80% del uso */ display: flex; gap: 12px; margin-bottom:
+              24px; } .secondary-actions { /* 80% de acciones, 20% del uso */
+              display: none; /* Ocultas por defecto */ }
+              .secondary-actions.expanded { display: flex; flex-wrap: wrap; gap:
+              8px; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Navegación Simplificada</div>
+            <p>
+              Coloca las opciones más usadas en el área de fácil acceso del
+              pulgar.
+            </p>
+            <div class="code-example">
+              .bottom-navigation { /* 20% de opciones principales */ position:
+              fixed; bottom: 0; display: flex; justify-content: space-around; }
+              .overflow-menu { /* 80% de opciones secundarias */ position:
+              absolute; right: 16px; top: 16px; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Analytics</div>
+            <div class="example-title">Optimización de Performance</div>
+            <p>
+              Enfócate en optimizar las páginas que generan el 80% del tráfico.
+            </p>
+            <div class="code-example">
+              // Lazy loading para contenido menos usado const LazyComponent =
+              lazy(() => import('./SecondaryFeature') ); // Preload crítico para
+              funciones principales &lt;link rel="preload"
+              href="/main-feature.js" as="script"&gt; // Code splitting basado
+              en uso const router = createBrowserRouter([ { path: "/",
+              component: HomePage }, // 80% tráfico { path: "/admin", lazy: ()
+              => import("./AdminPage") // 20% tráfico } ]);
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Demo Interactiva - Principio de Pareto</div>
+          <p>Ejemplo de priorización de funcionalidades:</p>
+          <div class="comparison-grid">
+            <div class="comparison-card bad">
+              <strong>❌ Todas las funciones igual de prominentes:</strong
+              ><br />
+              <div class="feature-list">
+                <span class="feature-item">Buscar</span>
+                <span class="feature-item">Filtros</span>
+                <span class="feature-item">Compartir</span>
+                <span class="feature-item">Exportar</span>
+                <span class="feature-item">Imprimir</span>
+                <span class="feature-item">Configurar</span>
+                <span class="feature-item">Ayuda</span>
+                <span class="feature-item">Feedback</span>
+              </div>
+              <small>Usuario abrumado por igual importancia visual</small>
+            </div>
+            <div class="comparison-card good">
+              <strong>✅ 80/20 aplicado:</strong><br />
+              <strong>Principales (80% uso):</strong>
+              <div class="feature-list">
+                <span class="feature-item">Buscar</span>
+                <span class="feature-item">Filtros</span>
+              </div>
+              <strong>Secundarias (20% uso):</strong>
+              <div class="feature-list">
+                <span class="feature-item secondary">Compartir</span>
+                <span class="feature-item secondary">Exportar</span>
+                <span class="feature-item secondary">Imprimir</span>
+                <span class="feature-item secondary">Más...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación - Pareto</div>
+          <div class="tips-list">
+            <strong>• Analiza métricas de uso</strong> para identificar tu 20%
+            crítico<br />
+            <strong>• Usa jerarquía visual</strong> (tamaño, color, posición)
+            para destacar funciones principales<br />
+            <strong>• Implementa progressive disclosure</strong> para funciones
+            secundarias<br />
+            <strong>• Coloca acciones principales</strong> en áreas de fácil
+            acceso<br />
+            <strong>• Agrupa funciones secundarias</strong> en menús
+            desplegables o modales
+          </div>
+        </div>
+      </div>
+
+      <!-- Ley de Jacob -->
+      <div class="law-card" id="jakob">
+        <div class="law-title">
+          <span class="law-icon">🌐</span>
+          Ley de Jakob
+        </div>
+        <div class="law-description">
+          Los usuarios pasan la mayor parte de su tiempo en otros sitios web.
+          Por tanto,
+          <span class="highlight">prefieren que tu sitio funcione igual</span>
+          que todos los demás sitios que ya conocen.
+        </div>
+        <div class="examples-grid">
+          <div class="example-card">
+            <div class="example-platform">Web</div>
+            <div class="example-title">Patrones de Navegación</div>
+            <p>
+              Usa convenciones establecidas para navegación y layout que los
+              usuarios ya conocen.
+            </p>
+            <div class="code-example">
+              /* Header convencional */ .header { display: flex;
+              justify-content: space-between; align-items: center; padding: 16px
+              24px; } .logo { order: 1; } /* Logo a la izquierda */ .nav-menu {
+              order: 2; } /* Menú en el centro */ .user-actions { order: 3; } /*
+              Perfil/carrito a la derecha */ /* Footer estándar */ .footer {
+              background: #2d3748; color: white; padding: 48px 24px 24px;
+              margin-top: auto; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">E-commerce</div>
+            <div class="example-title">Formularios Familiares</div>
+            <p>
+              Estructura de checkout siguiendo patrones que los usuarios
+              esperan.
+            </p>
+            <div class="code-example">
+              .checkout-form { /* Orden estándar esperado */ display: grid; gap:
+              24px; } .shipping-info { order: 1; } .payment-method { order: 2; }
+              .order-review { order: 3; } /* Campos en orden convencional */
+              .address-fields { display: grid; grid-template-columns: 2fr 1fr;
+              gap: 16px; } .street { grid-column: 1 / -1; } .city { grid-column:
+              1; } .postal-code { grid-column: 2; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">Mobile</div>
+            <div class="example-title">Gestos Familiares</div>
+            <p>
+              Implementa gestos y interacciones que los usuarios ya conocen de
+              otras apps.
+            </p>
+            <div class="code-example">
+              /* Swipe para eliminar (iOS/Android) */ .list-item { position:
+              relative; overflow: hidden; } .swipe-actions { position: absolute;
+              right: 0; top: 0; height: 100%; background: #e53e3e; display:
+              flex; align-items: center; padding: 0 20px; } /* Pull to refresh
+              */ .pull-refresh { transform: translateY(-60px); transition:
+              transform 0.3s ease; }
+            </div>
+          </div>
+
+          <div class="example-card">
+            <div class="example-platform">UI Patterns</div>
+            <div class="example-title">Iconografía Universal</div>
+            <p>
+              Usa iconos y símbolos que tienen significado universal
+              establecido.
+            </p>
+            <div class="code-example">
+              /* Iconos universales */ .search-icon::before { content: "🔍"; }
+              .menu-icon::before { content: "☰"; } .close-icon::before {
+              content: "✕"; } .home-icon::before { content: "🏠"; }
+              .cart-icon::before { content: "🛒"; } /* Posicionamiento
+              convencional */ .search { position: top-right; } .menu { position:
+              top-left; } .back-button { position: top-left; } .profile {
+              position: top-right; }
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <div class="demo-title">Demo Interactiva - Ley de Jakob</div>
+          <p>Comparación de patrones familiares vs. innovadores:</p>
+          <div class="comparison-grid">
+            <div class="comparison-card bad">
+              <strong>❌ Patrón innovador pero confuso:</strong><br />
+              <div class="interactive-demo">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                    align-items: center;
+                  "
+                >
+                  <div
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      background: #667eea;
+                      border-radius: 50%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: white;
+                    "
+                  >
+                    🏠
+                  </div>
+                  <div
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      background: #667eea;
+                      border-radius: 50%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: white;
+                    "
+                  >
+                    🔍
+                  </div>
+                  <div
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      background: #667eea;
+                      border-radius: 50%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: white;
+                    "
+                  >
+                    👤
+                  </div>
+                </div>
+              </div>
+              <small>Navegación circular: creativa pero no intuitiva</small>
+            </div>
+            <div class="comparison-card good">
+              <strong>✅ Patrón familiar y reconocible:</strong><br />
+              <div class="interactive-demo">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-around;
+                    background: #f8f9fa;
+                    padding: 12px;
+                    border-radius: 8px;
+                  "
+                >
+                  <div style="text-align: center; color: #667eea">
+                    <div>🏠</div>
+                    <small>Inicio</small>
+                  </div>
+                  <div style="text-align: center; color: #667eea">
+                    <div>🔍</div>
+                    <small>Buscar</small>
+                  </div>
+                  <div style="text-align: center; color: #667eea">
+                    <div>👤</div>
+                    <small>Perfil</small>
+                  </div>
+                </div>
+              </div>
+              <small>Tab bar estándar: inmediatamente reconocible</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="implementation-tips">
+          <div class="tips-title">💡 Tips de Implementación - Jakob</div>
+          <div class="tips-list">
+            <strong>• Estudia plataformas líderes</strong> en tu industria y
+            adopta sus patrones exitosos<br />
+            <strong>• Usa convenciones establecidas</strong> para navegación,
+            formularios y layouts<br />
+            <strong>• Innova en contenido</strong>, no en patrones de
+            interacción básicos<br />
+            <strong>• Testa siempre</strong> patrones no convencionales antes de
+            implementar<br />
+            <strong>• Mantén consistencia</strong> con las expectativas del
+            sistema operativo (iOS/Android/Web)
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
