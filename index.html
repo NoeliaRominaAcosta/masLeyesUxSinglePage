@@ -418,6 +418,136 @@
           text-align: center;
         }
       }
+      .subtitle {
+        color: #718096;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+      }
+
+      .code-example {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 30px 0;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      .buttons-demo {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 30px 0;
+      }
+
+      .btn {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover:before {
+        left: 100%;
+      }
+      .demo-image {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border-radius: 8px;
+        padding: 12px 24px;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: #007bff;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        padding: 12px 24px;
+      }
+
+      .btn-secondary:hover {
+        background-color: #007bff;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+      }
+
+      .demo-section {
+        margin: 40px 0;
+      }
+
+      .demo-title {
+        color: #4a5568;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .variations {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .variation-card {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .variation-title {
+        color: #2d3748;
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
     </style>
   </head>
   <body>
@@ -782,9 +912,19 @@
             • Implementa pasos progresivos en wizards<br />
             • Agrupa elementos relacionados visualmente<br />
             • Usa paginación en lugar de scroll infinito para listas largas<br />
-            • Limita opciones en dropdowns a 7±2 cuando sea posible
+            • Limita opciones en dropdowns a 7±2 cuando sea posible<br />
+            • Por ejemplo, mira cómo se organiza la tienda de Microsoft: en el
+            menú de navegación tienes 5 categorías de productos (en lugar de
+            mostrarlos todos de entrada) y cada uno de ellos solo tiene 5
+            elementos dentro como máximo:
           </div>
         </div>
+
+        <img
+          class="demo-image"
+          src="https://www.uifrommars.com/wp-content/uploads/2019/08/miller-tienda-microsoft.jpg"
+          alt=""
+        />
       </div>
 
       <!-- Principios Gestalt -->
@@ -846,6 +986,57 @@
         </div>
 
         <div class="demo-section">
+          <div class="demo-section">
+            <div class="demo-title">Demostración Interactiva</div>
+            <div class="buttons-demo">
+              <button class="btn btn-primary">Botón Primario</button>
+              <button class="btn btn-secondary">Botón Secundario</button>
+            </div>
+          </div>
+
+          <div class="variations">
+            <div class="variation-card">
+              <div class="variation-title">Primario</div>
+              <button class="btn btn-primary">Guardar</button>
+              <button class="btn btn-primary" style="margin-top: 10px">
+                Continuar
+              </button>
+            </div>
+
+            <div class="variation-card">
+              <div class="variation-title">Secundario</div>
+              <button class="btn btn-secondary">Cancelar</button>
+              <button class="btn btn-secondary" style="margin-top: 10px">
+                Ver más
+              </button>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: 40px;
+              padding: 20px;
+
+              border-radius: 10px;
+            "
+          >
+            <h3 style="color: #2d3748; margin-bottom: 15px">
+              ✨ Características
+            </h3>
+            <ul style="text-align: left; color: #4a5568; line-height: 1.6">
+              <li>
+                <strong>Consistencia:</strong> Mismo padding y border-radius
+              </li>
+              <li>
+                <strong>Contraste:</strong> Primario sólido vs. secundario
+                transparente
+              </li>
+              <li><strong>Interactividad:</strong> Efectos hover suaves</li>
+              <li>
+                <strong>Accesibilidad:</strong> Colores con buen contraste
+              </li>
+            </ul>
+          </div>
           <div class="demo-title">Principios Gestalt en Acción</div>
           <div
             style="
@@ -1017,6 +1208,11 @@
               </div>
             </div>
           </div>
+          <img
+            class="demo-image"
+            src="https://public-images.interaction-design.org/tags/Tabbed%20menus.webp"
+            alt=""
+          />
         </div>
 
         <div class="implementation-tips">
@@ -1227,6 +1423,11 @@
             sistema operativo (iOS/Android/Web)
           </div>
         </div>
+        <img
+          class="demo-image"
+          src="https://www.datocms-assets.com/38511/1623334168-image12.png?auto=format&dpr=0.97&w=1999"
+          alt=""
+        />
       </div>
     </div>
   </body>
